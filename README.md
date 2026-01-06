@@ -1,2 +1,2 @@
 # vscode-hello-world3
-I am using GitHub and vocoder
+I am using GitHub and vscode
