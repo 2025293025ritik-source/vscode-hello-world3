@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive App</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+        }
+
+        .box {
+            background: white;
+            padding: 15px;
+            margin: 20px auto;
+            width: 300px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-top: 5px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        li {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- TO-DO LIST -->
+<div class="box">
+    <h3>To-Do List</h3>
+    <input type="text" id="taskInput" placeholder="Enter task">
+    <button id="addTask">Add</button>
+    <ul id="taskList"></ul>
+</div>
+
+<!-- QUIZ -->
+<div class="box">
+    <h3>Simple Quiz</h3>
+    <p>2 + 2 = ?</p>
+    <input type="text" id="quizAnswer">
+    <button id="checkAnswer">Submit</button>
+    <p id="quizResult"></p>
+</div>
+
+<!-- MARKS CALCULATOR -->
+<div class="box">
+    <h3>Marks Calculator</h3>
+    <input type="number" id="m1" placeholder="Marks 1"><br>
+    <input type="number" id="m2" placeholder="Marks 2"><br>
+    <input type="number" id="m3" placeholder="Marks 3"><br>
+    <button id="calcBtn">Calculate</button>
+    <p id="result"></p>
+</div>
+
+<script>
+
+    // TO-DO LIST
+    document.getElementById("addTask").addEventListener("click", function() {
+        let task = document.getElementById("taskInput").value;
+
+        if (task === "") {
+            alert("Enter task");
+            return;
+        }
+
+        let li = document.createElement("li");
+        li.textContent = task;
+
+        li.addEventListener("click", function() {
+            li.remove();
+        });
+
+        document.getElementById("taskList").appendChild(li);
+        document.getElementById("taskInput").value = "";
+    });
+
+    // QUIZ
+    document.getElementById("checkAnswer").addEventListener("click", function() {
+        let ans = document.getElementById("quizAnswer").value;
+
+        if (ans == "4") {
+            document.getElementById("quizResult").innerText = "Correct!";
+        } else {
+            document.getElementById("quizResult").innerText = "Wrong!";
+        }
+    });
+
+    // MARKS CALCULATOR
+    document.getElementById("calcBtn").addEventListener("click", function() {
+        let m1 = Number(document.getElementById("m1").value);
+        let m2 = Number(document.getElementById("m2").value);
+        let m3 = Number(document.getElementById("m3").value);
+
+        if (!m1 || !m2 || !m3) {
+            alert("Enter all marks");
+            return;
+        }
+
+        let avg = (m1 + m2 + m3) / 3;
+
+        document.getElementById("result").innerText = "Average: " + avg;
+    });
+
+</script>
+
+</body>
+</html>

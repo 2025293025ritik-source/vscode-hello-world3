@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM Manipulation</title>
+
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        .dark {
+            background-color: black;
+            color: white;
+        }
+
+        button {
+            margin: 5px;
+            padding: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2 id="text">Hello World</h2>
+
+    <button id="changeBtn">Change Text</button>
+    <button id="themeBtn">Toggle Theme</button>
+
+    <h3>Add Items</h3>
+    <input type="text" id="itemInput" placeholder="Enter item">
+    <button id="addBtn">Add</button>
+
+    <ul id="list"></ul>
+
+<script>
+
+    // Change text using getElementById
+    document.getElementById("changeBtn").addEventListener("click", function() {
+        document.getElementById("text").innerText = "Text Changed!";
+    });
+
+    // Toggle dark/light theme using querySelector
+    document.getElementById("themeBtn").addEventListener("click", function() {
+        document.body.classList.toggle("dark");
+    });
+
+    // Add item to list
+    document.getElementById("addBtn").addEventListener("click", function() {
+        let input = document.getElementById("itemInput");
+        let value = input.value;
+
+        if (value !== "") {
+            let li = document.createElement("li");
+            li.textContent = value;
+
+            // Remove item when clicked
+            li.addEventListener("click", function() {
+                li.remove();
+            });
+
+            document.getElementById("list").appendChild(li);
+            input.value = "";
+        }
+    });
+
+</script>
+
+</body>
+</html>

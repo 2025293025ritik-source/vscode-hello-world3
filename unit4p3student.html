@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Information</title>
+</head>
+
+<body>
+
+<h2>Student Details</h2>
+<div id="output"></div>
+
+<script>
+
+    // Student object
+    const student = {
+        name: "Rahul Sharma",
+        age: 20,
+        course: "Web Development",
+        marks: [78, 85, 90]
+    };
+
+    // Destructuring
+    const { name, course, marks } = student;
+
+    // Arrow function for average
+    const calculateAverage = (arr) => {
+        let sum = 0;
+        for (let i = 0; i < arr.length; i++) {
+            sum += arr[i];
+        }
+        return Math.round(sum / arr.length); // round value
+    };
+
+    // Spread operator
+    const updatedMarks = [...marks, 88];
+
+    // Calculate average
+    const average = calculateAverage(marks);
+
+    // Display output properly
+    document.getElementById("output").innerHTML = `
+        <p>Student Name: ${name}</p>
+        <p>Course: ${course}</p>
+        <p>Marks: ${marks.join(", ")}</p>
+        <p>Updated Marks: ${updatedMarks.join(", ")}</p>
+        <p>Average Marks: ${average}</p>
+    `;
+
+</script>
+
+</body>
+</html>
