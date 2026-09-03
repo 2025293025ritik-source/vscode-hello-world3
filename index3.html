@@ -1,0 +1,2720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nexcare-AI | Clinical Pre-Consultation</title>
+
+    <style>
+
+        /* =====================================================
+           BASIC RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            background: #F5F8FA;
+            color: #17232E;
+
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        button,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        header {
+            height: 76px;
+
+            background: #FFFFFF;
+
+            border-bottom: 1px solid #D8E2E9;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            flex-shrink: 0;
+        }
+
+
+        /* ---------- BRAND ---------- */
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 12px;
+
+            background: #123A63;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 21px;
+            font-weight: 800;
+
+            position: relative;
+        }
+
+
+        .brand-mark::after {
+            content: "";
+
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: #0B8F5A;
+
+            position: absolute;
+
+            right: 5px;
+            bottom: 5px;
+        }
+
+
+        .brand-name {
+            color: #123A63;
+
+            font-size: 21px;
+
+            font-weight: 750;
+
+            letter-spacing: -0.3px;
+        }
+
+
+        .brand-subtitle {
+            color: #657582;
+
+            font-size: 11px;
+
+            margin-top: 2px;
+        }
+
+
+        /* ---------- HEADER BUTTONS ---------- */
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+        .language-button,
+        .help-button {
+            background: white;
+
+            border: 1px solid #D8E2E9;
+
+            color: #123A63;
+
+            border-radius: 10px;
+
+            padding: 10px 15px;
+
+            font-weight: 650;
+
+            transition: 0.2s ease;
+        }
+
+
+        .language-button:hover,
+        .help-button:hover {
+            background: #EAF5FB;
+        }
+
+
+        /* =====================================================
+           PAGE AREA
+        ===================================================== */
+
+        main {
+            width: min(1080px, 92%);
+
+            margin: 0 auto;
+
+            padding: 40px 0 35px;
+
+            flex: 1;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
+
+        .progress-area {
+            margin-bottom: 30px;
+        }
+
+
+        .progress-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            color: #657582;
+
+            font-size: 13px;
+
+            margin-bottom: 9px;
+        }
+
+
+        .progress-track {
+            width: 100%;
+
+            height: 6px;
+
+            background: #DCE6EC;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+
+        .progress-bar {
+            height: 100%;
+
+            width: 33.33%;
+
+            background: #1769A8;
+
+            border-radius: 20px;
+
+            transition: width 0.3s ease;
+        }
+
+
+        /* =====================================================
+           SCREENS
+        ===================================================== */
+
+        .screen {
+            display: none;
+
+            animation: fadeIn 0.25s ease;
+
+            flex: 1;
+        }
+
+
+        .screen.active {
+            display: block;
+        }
+
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* =====================================================
+           WELCOME SCREEN
+        ===================================================== */
+
+        .hero-grid {
+
+            display: grid;
+
+            grid-template-columns: 1.15fr 0.85fr;
+
+            gap: 50px;
+
+            align-items: center;
+
+            min-height: 570px;
+        }
+
+
+        .eyebrow {
+
+            color: #0B8F5A;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.1px;
+
+            margin-bottom: 14px;
+        }
+
+
+        .eyebrow::before {
+
+            content: "";
+
+            width: 8px;
+            height: 8px;
+
+            display: inline-block;
+
+            border-radius: 50%;
+
+            background: #0B8F5A;
+
+            margin-right: 9px;
+        }
+
+
+        h1 {
+
+            color: #123A63;
+
+            font-size: clamp(38px, 5vw, 58px);
+
+            line-height: 1.05;
+
+            letter-spacing: -2.2px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .hero-description {
+
+            color: #657582;
+
+            font-size: 18px;
+
+            line-height: 1.65;
+
+            max-width: 610px;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
+
+        .primary-button {
+
+            min-height: 52px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            padding: 15px 26px;
+
+            background: #1769A8;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 750;
+
+            box-shadow:
+                0 6px 16px rgba(23, 105, 168, 0.16);
+
+            transition: 0.2s ease;
+        }
+
+
+        .primary-button:hover {
+
+            background: #123A63;
+
+            transform: translateY(-1px);
+        }
+
+
+        .primary-button:disabled {
+
+            background: #AFC1CC;
+
+            box-shadow: none;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        .secondary-button {
+
+            min-height: 50px;
+
+            border: 1px solid #D8E2E9;
+
+            border-radius: 12px;
+
+            padding: 14px 22px;
+
+            background: white;
+
+            color: #123A63;
+
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+
+        .secondary-button:hover {
+
+            background: #EAF5FB;
+        }
+
+
+        /* =====================================================
+           BENEFIT CARDS
+        ===================================================== */
+
+        .benefits {
+
+            display: grid;
+
+            gap: 14px;
+        }
+
+
+        .benefit-card {
+
+            background: white;
+
+            border: 1px solid #D8E2E9;
+
+            border-radius: 17px;
+
+            padding: 21px;
+
+            display: flex;
+
+            gap: 15px;
+
+            align-items: flex-start;
+
+            box-shadow:
+                0 8px 25px rgba(18, 58, 99, 0.035);
+        }
+
+
+        .benefit-icon {
+
+            width: 42px;
+            height: 42px;
+
+            flex-shrink: 0;
+
+            border-radius: 12px;
+
+            background: #EAF5FB;
+
+            color: #1769A8;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 20px;
+
+            font-weight: 700;
+        }
+
+
+        .benefit-card h3 {
+
+            color: #123A63;
+
+            font-size: 15px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .benefit-card p {
+
+            color: #657582;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           CONTENT CARD
+        ===================================================== */
+
+        .content-card {
+
+            width: min(760px, 100%);
+
+            margin: 35px auto 0;
+
+            background: white;
+
+            border: 1px solid #D8E2E9;
+
+            border-radius: 20px;
+
+            padding: 38px;
+
+            box-shadow:
+                0 10px 35px rgba(18, 58, 99, 0.05);
+        }
+
+
+        .content-card h2 {
+
+            color: #123A63;
+
+            font-size: 31px;
+
+            letter-spacing: -0.8px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .content-card > .description {
+
+            color: #657582;
+
+            line-height: 1.6;
+
+            margin-bottom: 28px;
+        }
+
+
+        /* =====================================================
+           PRIVACY BOX
+        ===================================================== */
+
+        .privacy-box {
+
+            background: #EAF8F2;
+
+            border: 1px solid #CBEBDD;
+
+            border-radius: 14px;
+
+            padding: 18px;
+
+            margin-bottom: 23px;
+        }
+
+
+        .privacy-title {
+
+            color: #0B8F5A;
+
+            font-weight: 800;
+
+            margin-bottom: 10px;
+        }
+
+
+        .privacy-list {
+
+            list-style: none;
+
+            display: grid;
+
+            gap: 9px;
+        }
+
+
+        .privacy-list li {
+
+            color: #365064;
+
+            font-size: 14px;
+
+            line-height: 1.45;
+        }
+
+
+        .privacy-list li::before {
+
+            content: "✓";
+
+            color: #0B8F5A;
+
+            font-weight: 800;
+
+            margin-right: 8px;
+        }
+
+
+        /* =====================================================
+           CONSENT
+        ===================================================== */
+
+        .consent-row {
+
+            display: flex;
+
+            gap: 12px;
+
+            align-items: flex-start;
+
+            padding: 16px;
+
+            border: 1px solid #D8E2E9;
+
+            border-radius: 13px;
+
+            margin-bottom: 24px;
+        }
+
+
+        .consent-row input {
+
+            width: 20px;
+
+            height: 20px;
+
+            margin-top: 2px;
+
+            accent-color: #1769A8;
+
+            flex-shrink: 0;
+        }
+
+
+        .consent-row label {
+
+            color: #365064;
+
+            font-size: 14px;
+
+            line-height: 1.55;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           BUTTON ROW
+        ===================================================== */
+
+        .button-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        /* =====================================================
+           INTERVIEW
+        ===================================================== */
+
+        .question-header {
+
+            text-align: center;
+
+            margin-bottom: 27px;
+        }
+
+
+        .question-header h2 {
+
+            margin-bottom: 9px;
+        }
+
+
+        .question-header p {
+
+            color: #657582;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           VOICE SECTION
+        ===================================================== */
+
+        .voice-section {
+
+            border: 1px solid #D8E2E9;
+
+            border-radius: 17px;
+
+            padding: 27px;
+
+            text-align: center;
+
+            background: #FBFDFE;
+        }
+
+
+        .voice-button {
+
+            width: 110px;
+
+            height: 110px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #1769A8;
+
+            color: white;
+
+            font-size: 38px;
+
+            box-shadow:
+                0 10px 25px rgba(23, 105, 168, 0.20);
+
+            transition: 0.2s ease;
+        }
+
+
+        .voice-button:hover {
+
+            transform: scale(1.03);
+
+            background: #123A63;
+        }
+
+
+        .voice-button.listening {
+
+            background: #0B8F5A;
+
+            animation: pulse 1.4s infinite;
+        }
+
+
+        @keyframes pulse {
+
+            0% {
+
+                box-shadow:
+                    0 0 0 0 rgba(11, 143, 90, 0.35);
+            }
+
+            70% {
+
+                box-shadow:
+                    0 0 0 22px rgba(11, 143, 90, 0);
+            }
+
+            100% {
+
+                box-shadow:
+                    0 0 0 0 rgba(11, 143, 90, 0);
+            }
+
+        }
+
+
+        .voice-title {
+
+            margin-top: 17px;
+
+            color: #123A63;
+
+            font-weight: 750;
+        }
+
+
+        .voice-status {
+
+            margin-top: 5px;
+
+            color: #657582;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           DIVIDER
+        ===================================================== */
+
+        .or-divider {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin: 22px 0;
+
+            color: #8A99A3;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .or-divider::before,
+        .or-divider::after {
+
+            content: "";
+
+            height: 1px;
+
+            flex: 1;
+
+            background: #D8E2E9;
+        }
+
+
+        /* =====================================================
+           TEXT AREA
+        ===================================================== */
+
+        textarea {
+
+            width: 100%;
+
+            min-height: 130px;
+
+            border: 1px solid #D8E2E9;
+
+            border-radius: 13px;
+
+            resize: vertical;
+
+            padding: 16px;
+
+            outline: none;
+
+            color: #17232E;
+
+            background: white;
+
+            line-height: 1.5;
+        }
+
+
+        textarea:focus {
+
+            border-color: #1769A8;
+
+            box-shadow:
+                0 0 0 3px rgba(23, 105, 168, 0.09);
+        }
+
+
+        /* =====================================================
+           SECURE NOTE
+        ===================================================== */
+
+        .secure-note {
+
+            text-align: center;
+
+            color: #657582;
+
+            font-size: 12px;
+
+            margin-top: 16px;
+        }
+
+
+        .secure-note .check {
+
+            color: #0B8F5A;
+
+            font-weight: 800;
+
+            margin-right: 4px;
+        }
+
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
+
+        .modal-overlay {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(18, 35, 46, 0.45);
+
+            z-index: 100;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+
+        .modal-overlay.active {
+
+            display: flex;
+        }
+
+
+        /* =====================================================
+           VOICE MODAL
+        ===================================================== */
+
+        .voice-modal {
+
+            width: min(430px, 100%);
+
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 35px;
+
+            text-align: center;
+
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.16);
+        }
+
+
+        .voice-animation {
+
+            width: 90px;
+
+            height: 90px;
+
+            border-radius: 50%;
+
+            background: #EAF8F2;
+
+            color: #0B8F5A;
+
+            margin: 0 auto 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 33px;
+
+            animation: pulse 1.4s infinite;
+        }
+
+
+        .voice-modal h3 {
+
+            color: #123A63;
+
+            font-size: 23px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .voice-modal p {
+
+            color: #657582;
+
+            line-height: 1.5;
+
+            margin-bottom: 22px;
+        }
+
+
+        /* =====================================================
+           HELP MODAL
+        ===================================================== */
+
+        .help-modal {
+
+            width: min(500px, 100%);
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 32px;
+        }
+
+
+        .help-modal h3 {
+
+            color: #123A63;
+
+            margin-bottom: 12px;
+
+            font-size: 24px;
+        }
+
+
+        .help-modal p {
+
+            color: #657582;
+
+            line-height: 1.6;
+
+            margin-bottom: 18px;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .site-footer {
+
+            width: 100%;
+
+            border-top: 1px solid #D8E2E9;
+
+            padding: 18px 5%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            background: white;
+
+            color: #657582;
+
+            font-size: 12px;
+
+            flex-shrink: 0;
+        }
+
+
+        .site-footer strong {
+
+            color: #123A63;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            header {
+                padding: 0 4%;
+            }
+
+
+            main {
+                padding-top: 30px;
+            }
+
+
+            .hero-grid {
+
+                grid-template-columns: 1fr;
+
+                gap: 30px;
+
+                min-height: auto;
+            }
+
+
+            h1 {
+
+                font-size: 42px;
+            }
+
+        }
+
+
+        @media (max-width: 560px) {
+
+            .brand-subtitle {
+                display: none;
+            }
+
+
+            .help-button {
+                display: none;
+            }
+
+
+            .content-card {
+
+                padding: 24px;
+
+                border-radius: 16px;
+            }
+
+
+            .content-card h2 {
+
+                font-size: 26px;
+            }
+
+
+            .button-row {
+
+                flex-direction: column-reverse;
+
+                align-items: stretch;
+            }
+
+
+            .button-row button {
+
+                width: 100%;
+            }
+
+
+            .voice-button {
+
+                width: 95px;
+
+                height: 95px;
+            }
+
+
+            .site-footer {
+
+                flex-direction: column;
+
+                gap: 8px;
+
+                text-align: center;
+
+                padding: 16px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header>
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                N
+            </div>
+
+
+            <div>
+
+                <div class="brand-name">
+                    Nexcare-AI
+                </div>
+
+
+                <div
+                    class="brand-subtitle"
+                    data-en="Clinical Pre-Consultation"
+                    data-hi="क्लिनिकल प्री-कंसल्टेशन">
+
+                    Clinical Pre-Consultation
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-actions">
+
+            <button
+                class="language-button"
+                id="languageButton"
+                onclick="toggleLanguage()">
+
+                हिन्दी
+
+            </button>
+
+
+            <button
+                class="help-button"
+                onclick="openHelp()"
+                data-en="Help"
+                data-hi="सहायता">
+
+                Help
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main>
+
+
+        <!-- =================================================
+             PROGRESS
+        ================================================== -->
+
+        <div class="progress-area">
+
+            <div class="progress-top">
+
+                <span
+                    id="stepText"
+                    data-en="Step 1 of 3"
+                    data-hi="चरण 1 / 3">
+
+                    Step 1 of 3
+
+                </span>
+
+
+                <span
+                    id="stepName"
+                    data-en="Welcome"
+                    data-hi="स्वागत">
+
+                    Welcome
+
+                </span>
+
+            </div>
+
+
+            <div class="progress-track">
+
+                <div
+                    class="progress-bar"
+                    id="progressBar">
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             SCREEN 1 — WELCOME
+        ================================================== -->
+
+        <section
+            class="screen active"
+            id="welcomeScreen">
+
+
+            <div class="hero-grid">
+
+
+                <!-- LEFT SIDE -->
+
+                <div>
+
+                    <div
+                        class="eyebrow"
+                        data-en="BEFORE YOU SEE THE DOCTOR"
+                        data-hi="डॉक्टर से मिलने से पहले">
+
+                        BEFORE YOU SEE THE DOCTOR
+
+                    </div>
+
+
+                    <h1
+                        data-en="Let's get your visit started."
+                        data-hi="आइए आपकी जांच की शुरुआत करें।">
+
+                        Let's get your visit started.
+
+                    </h1>
+
+
+                    <p
+                        class="hero-description"
+                        data-en="Tell us what brings you in today. You can speak or type in your own words. We'll organise your information for the healthcare professional."
+                        data-hi="आज आपको किस समस्या के कारण अस्पताल आना पड़ा, हमें बताएं। आप अपनी भाषा में बोल या लिख सकते हैं। हम आपकी जानकारी को स्वास्थ्य विशेषज्ञ के लिए व्यवस्थित करेंगे।">
+
+                        Tell us what brings you in today.
+                        You can speak or type in your own words.
+                        We'll organise your information for the healthcare professional.
+
+                    </p>
+
+
+                    <button
+                        class="primary-button"
+                        onclick="goToConsent()"
+                        data-en="Get started"
+                        data-hi="शुरू करें">
+
+                        Get started
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- RIGHT SIDE -->
+
+                <div class="benefits">
+
+
+                    <div class="benefit-card">
+
+                        <div class="benefit-icon">
+                            ◉
+                        </div>
+
+
+                        <div>
+
+                            <h3
+                                data-en="Speak naturally"
+                                data-hi="स्वाभाविक रूप से बोलें">
+
+                                Speak naturally
+
+                            </h3>
+
+
+                            <p
+                                data-en="Explain your health concern in your own words. Medical terms are not required."
+                                data-hi="अपनी स्वास्थ्य समस्या को अपनी भाषा में बताएं। मेडिकल शब्दों की आवश्यकता नहीं है।">
+
+                                Explain your health concern in your own words.
+                                Medical terms are not required.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="benefit-card">
+
+                        <div class="benefit-icon">
+                            +
+                        </div>
+
+
+                        <div>
+
+                            <h3
+                                data-en="Guided questions"
+                                data-hi="मार्गदर्शित प्रश्न">
+
+                                Guided questions
+
+                            </h3>
+
+
+                            <p
+                                data-en="Relevant questions can be asked based on the information you provide."
+                                data-hi="आपके द्वारा दी गई जानकारी के आधार पर संबंधित प्रश्न पूछे जा सकते हैं।">
+
+                                Relevant questions can be asked based on the information you provide.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="benefit-card">
+
+                        <div class="benefit-icon">
+                            ✓
+                        </div>
+
+
+                        <div>
+
+                            <h3
+                                data-en="Privacy first"
+                                data-hi="गोपनीयता सबसे पहले">
+
+                                Privacy first
+
+                            </h3>
+
+
+                            <p
+                                data-en="Your information is collected to support your healthcare journey."
+                                data-hi="आपकी जानकारी आपके स्वास्थ्य सेवा अनुभव में सहायता के लिए एकत्र की जाती है।">
+
+                                Your information is collected to support your healthcare journey.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SCREEN 2 — CONSENT
+        ================================================== -->
+
+        <section
+            class="screen"
+            id="consentScreen">
+
+
+            <div class="content-card">
+
+
+                <h2
+                    data-en="Before we begin"
+                    data-hi="शुरू करने से पहले">
+
+                    Before we begin
+
+                </h2>
+
+
+                <p
+                    class="description"
+                    data-en="Please review how your information will be used during this pre-consultation process."
+                    data-hi="कृपया देखें कि इस प्री-कंसल्टेशन प्रक्रिया के दौरान आपकी जानकारी का उपयोग कैसे किया जाएगा।">
+
+                    Please review how your information will be used during this pre-consultation process.
+
+                </p>
+
+
+
+                <!-- PRIVACY -->
+
+                <div class="privacy-box">
+
+                    <div
+                        class="privacy-title"
+                        data-en="Your privacy"
+                        data-hi="आपकी गोपनीयता">
+
+                        Your privacy
+
+                    </div>
+
+
+                    <ul class="privacy-list">
+
+                        <li
+                            data-en="Your information is collected to support your healthcare consultation."
+                            data-hi="आपकी जानकारी स्वास्थ्य परामर्श में सहायता के लिए एकत्र की जाती है।">
+
+                            Your information is collected to support your healthcare consultation.
+
+                        </li>
+
+
+                        <li
+                            data-en="You can choose whether to speak or type your answers."
+                            data-hi="आप चुन सकते हैं कि उत्तर बोलकर देना है या लिखकर।">
+
+                            You can choose whether to speak or type your answers.
+
+                        </li>
+
+
+                        <li
+                            data-en="Your responses are intended to be reviewed by a healthcare professional."
+                            data-hi="आपके उत्तरों की समीक्षा स्वास्थ्य विशेषज्ञ द्वारा की जाएगी।">
+
+                            Your responses are intended to be reviewed by a healthcare professional.
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+
+                <!-- CONSENT CHECKBOX -->
+
+                <div class="consent-row">
+
+                    <input
+                        type="checkbox"
+                        id="consentCheckbox"
+                        onchange="updateConsent()">
+
+
+                    <label
+                        for="consentCheckbox"
+                        data-en="I understand and consent to provide my information for this pre-consultation process."
+                        data-hi="मैं समझता/समझती हूं और इस प्री-कंसल्टेशन प्रक्रिया के लिए अपनी जानकारी प्रदान करने की सहमति देता/देती हूं।">
+
+                        I understand and consent to provide my information for this pre-consultation process.
+
+                    </label>
+
+                </div>
+
+
+
+                <!-- BUTTONS -->
+
+                <div class="button-row">
+
+
+                    <button
+                        class="secondary-button"
+                        onclick="goToWelcome()"
+                        data-en="Back"
+                        data-hi="वापस">
+
+                        Back
+
+                    </button>
+
+
+                    <button
+                        class="primary-button"
+                        id="consentContinue"
+                        onclick="goToInterview()"
+                        disabled
+                        data-en="Continue"
+                        data-hi="जारी रखें">
+
+                        Continue
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SCREEN 3 — INTERVIEW
+        ================================================== -->
+
+        <section
+            class="screen"
+            id="interviewScreen">
+
+
+            <div class="content-card">
+
+
+                <div class="question-header">
+
+                    <h2
+                        data-en="What brings you here today?"
+                        data-hi="आज आपको यहां किस समस्या के कारण आना पड़ा?">
+
+                        What brings you here today?
+
+                    </h2>
+
+
+                    <p
+                        data-en="Tell us in your own words. You do not need to use medical terms."
+                        data-hi="अपनी भाषा में बताएं। आपको मेडिकल शब्दों का उपयोग करने की आवश्यकता नहीं है।">
+
+                        Tell us in your own words.
+                        You do not need to use medical terms.
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="voice-section">
+
+
+                    <!-- MICROPHONE -->
+
+                    <button
+                        class="voice-button"
+                        id="voiceButton"
+                        onclick="startVoice()">
+
+                        🎙
+
+                    </button>
+
+
+                    <div
+                        class="voice-title"
+                        id="voiceTitle"
+                        data-en="Tap to speak"
+                        data-hi="बोलने के लिए दबाएं">
+
+                        Tap to speak
+
+                    </div>
+
+
+                    <div
+                        class="voice-status"
+                        id="voiceStatus"
+                        data-en="You can speak naturally."
+                        data-hi="आप सामान्य रूप से बोल सकते हैं।">
+
+                        You can speak naturally.
+
+                    </div>
+
+
+
+                    <!-- OR -->
+
+                    <div
+                        class="or-divider"
+                        data-en="OR"
+                        data-hi="या">
+
+                        OR
+
+                    </div>
+
+
+
+                    <!-- TEXT INPUT -->
+
+                    <textarea
+                        id="answerBox"
+                        data-placeholder-en="Type your answer here..."
+                        data-placeholder-hi="अपना उत्तर यहां लिखें..."
+                        placeholder="Type your answer here...">
+                    </textarea>
+
+
+
+                    <!-- SECURITY -->
+
+                    <div class="secure-note">
+
+                        <span class="check">
+                            ✓
+                        </span>
+
+                        <span
+                            data-en="Your information is handled privately."
+                            data-hi="आपकी जानकारी को निजी रूप से संभाला जाता है।">
+
+                            Your information is handled privately.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- BUTTONS -->
+
+                <div
+                    class="button-row"
+                    style="margin-top:24px;">
+
+
+                    <button
+                        class="secondary-button"
+                        onclick="goToConsent()"
+                        data-en="Back"
+                        data-hi="वापस">
+
+                        Back
+
+                    </button>
+
+
+                    <button
+                        class="primary-button"
+                        id="answerContinueButton"
+                        onclick="submitAnswer()"
+                        data-en="Continue"
+                        data-hi="जारी रखें">
+
+                        Continue
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="site-footer">
+
+
+        <div>
+
+            © 2026
+            <strong>
+                Nexcare-AI
+            </strong>
+
+        </div>
+
+
+        <div
+            data-en="Designed for a simpler healthcare journey"
+            data-hi="एक आसान स्वास्थ्य सेवा अनुभव के लिए डिज़ाइन किया गया">
+
+            Designed for a simpler healthcare journey
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         VOICE MODAL
+    ====================================================== -->
+
+    <div
+        class="modal-overlay"
+        id="voiceModal">
+
+
+        <div class="voice-modal">
+
+
+            <div class="voice-animation">
+                🎙
+            </div>
+
+
+            <h3
+                data-en="Listening..."
+                data-hi="सुन रहा है...">
+
+                Listening...
+
+            </h3>
+
+
+            <p
+                data-en="Speak clearly. You can explain your concern in your own words."
+                data-hi="स्पष्ट रूप से बोलें। आप अपनी समस्या को अपनी भाषा में बता सकते हैं।">
+
+                Speak clearly.
+                You can explain your concern in your own words.
+
+            </p>
+
+
+            <button
+                class="secondary-button"
+                onclick="stopVoice()"
+                data-en="Stop listening"
+                data-hi="सुनना बंद करें">
+
+                Stop listening
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         HELP MODAL
+    ====================================================== -->
+
+    <div
+        class="modal-overlay"
+        id="helpModal">
+
+
+        <div class="help-modal">
+
+
+            <h3
+                data-en="Need help?"
+                data-hi="सहायता चाहिए?">
+
+                Need help?
+
+            </h3>
+
+
+            <p
+                data-en="You can speak using the microphone button or type your answer in the text box. If you make a mistake, you can go back and change your information."
+                data-hi="आप माइक्रोफोन बटन से बोल सकते हैं या टेक्स्ट बॉक्स में अपना उत्तर लिख सकते हैं। यदि कोई गलती हो जाए तो आप वापस जाकर अपनी जानकारी बदल सकते हैं।">
+
+                You can speak using the microphone button
+                or type your answer in the text box.
+                If you make a mistake, you can go back
+                and change your information.
+
+            </p>
+
+
+            <button
+                class="primary-button"
+                onclick="closeHelp()"
+                data-en="Close"
+                data-hi="बंद करें">
+
+                Close
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+
+        /* =================================================
+           APPLICATION STATE
+        ================================================= */
+
+        let currentLanguage = "en";
+
+        let recognition = null;
+
+        let isListening = false;
+
+
+
+        /* =================================================
+           LANGUAGE SWITCH
+        ================================================= */
+
+        function toggleLanguage() {
+
+
+            if (currentLanguage === "en") {
+
+                currentLanguage = "hi";
+
+            } else {
+
+                currentLanguage = "en";
+
+            }
+
+
+            document.documentElement.lang =
+                currentLanguage === "en"
+                    ? "en"
+                    : "hi";
+
+
+
+            /* ---------------------------------------------
+               Translate all visible text
+            --------------------------------------------- */
+
+            const elements =
+                document.querySelectorAll("[data-en]");
+
+
+            elements.forEach(function(element) {
+
+                const translation =
+                    element.getAttribute(
+                        "data-" + currentLanguage
+                    );
+
+
+                if (translation) {
+
+                    element.textContent = translation;
+
+                }
+
+            });
+
+
+
+            /* ---------------------------------------------
+               Language button
+            --------------------------------------------- */
+
+            const languageButton =
+                document.getElementById(
+                    "languageButton"
+                );
+
+
+            languageButton.textContent =
+                currentLanguage === "en"
+                    ? "हिन्दी"
+                    : "English";
+
+
+
+            /* ---------------------------------------------
+               Text box placeholder
+            --------------------------------------------- */
+
+            const answerBox =
+                document.getElementById(
+                    "answerBox"
+                );
+
+
+            answerBox.placeholder =
+                answerBox.getAttribute(
+                    "data-placeholder-" +
+                    currentLanguage
+                );
+
+
+
+            /* ---------------------------------------------
+               Voice language
+            --------------------------------------------- */
+
+            if (recognition) {
+
+                recognition.lang =
+                    currentLanguage === "en"
+                        ? "en-IN"
+                        : "hi-IN";
+
+            }
+
+        }
+
+
+
+        /* =================================================
+           SCREEN NAVIGATION
+        ================================================= */
+
+        function showScreen(
+            screenId,
+            step,
+            englishName,
+            hindiName
+        ) {
+
+
+            /* Hide every screen */
+
+            document
+                .querySelectorAll(".screen")
+                .forEach(function(screen) {
+
+                    screen.classList.remove("active");
+
+                });
+
+
+
+            /* Show selected screen */
+
+            document
+                .getElementById(screenId)
+                .classList.add("active");
+
+
+
+            /* Progress text */
+
+            const stepText =
+                document.getElementById(
+                    "stepText"
+                );
+
+
+            stepText.textContent =
+                currentLanguage === "en"
+                    ? `Step ${step} of 3`
+                    : `चरण ${step} / 3`;
+
+
+
+            /* Step name */
+
+            const stepName =
+                document.getElementById(
+                    "stepName"
+                );
+
+
+            stepName.textContent =
+                currentLanguage === "en"
+                    ? englishName
+                    : hindiName;
+
+
+
+            /* Progress bar */
+
+            const progressBar =
+                document.getElementById(
+                    "progressBar"
+                );
+
+
+            progressBar.style.width =
+                `${(step / 3) * 100}%`;
+
+
+
+            /* Scroll to top */
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior: "smooth"
+
+            });
+
+        }
+
+
+
+        /* =================================================
+           WELCOME
+        ================================================= */
+
+        function goToWelcome() {
+
+            showScreen(
+
+                "welcomeScreen",
+
+                1,
+
+                "Welcome",
+
+                "स्वागत"
+
+            );
+
+        }
+
+
+
+        /* =================================================
+           CONSENT
+        ================================================= */
+
+        function goToConsent() {
+
+            showScreen(
+
+                "consentScreen",
+
+                2,
+
+                "Consent",
+
+                "सहमति"
+
+            );
+
+        }
+
+
+
+        /* =================================================
+           INTERVIEW
+        ================================================= */
+
+        function goToInterview() {
+
+
+            const checkbox =
+                document.getElementById(
+                    "consentCheckbox"
+                );
+
+
+            if (!checkbox.checked) {
+
+                return;
+
+            }
+
+
+            showScreen(
+
+                "interviewScreen",
+
+                3,
+
+                "Interview",
+
+                "साक्षात्कार"
+
+            );
+
+        }
+
+
+
+        /* =================================================
+           CONSENT CHECKBOX
+        ================================================= */
+
+        function updateConsent() {
+
+
+            const checkbox =
+                document.getElementById(
+                    "consentCheckbox"
+                );
+
+
+            const continueButton =
+                document.getElementById(
+                    "consentContinue"
+                );
+
+
+            continueButton.disabled =
+                !checkbox.checked;
+
+        }
+
+
+
+        /* =================================================
+           START VOICE
+        ================================================= */
+
+        function startVoice() {
+
+
+            /* Browser speech recognition */
+
+            const SpeechRecognition =
+                window.SpeechRecognition ||
+                window.webkitSpeechRecognition;
+
+
+
+            /* Browser does not support speech */
+
+            if (!SpeechRecognition) {
+
+
+                alert(
+
+                    currentLanguage === "en"
+
+                        ? "Voice input is not supported in this browser. Please use Google Chrome or type your answer."
+
+                        : "इस ब्राउज़र में वॉइस इनपुट उपलब्ध नहीं है। कृपया Google Chrome का उपयोग करें या अपना उत्तर लिखें।"
+
+                );
+
+
+                return;
+
+            }
+
+
+
+            /* Stop if already listening */
+
+            if (isListening) {
+
+                stopVoice();
+
+                return;
+
+            }
+
+
+
+            /* Create recognition */
+
+            recognition =
+                new SpeechRecognition();
+
+
+
+            /* Set language */
+
+            recognition.lang =
+                currentLanguage === "en"
+                    ? "en-IN"
+                    : "hi-IN";
+
+
+
+            /* Settings */
+
+            recognition.continuous = false;
+
+            recognition.interimResults = true;
+
+
+
+            /* ---------------------------------------------
+               Voice started
+            --------------------------------------------- */
+
+            recognition.onstart = function() {
+
+
+                isListening = true;
+
+
+                document
+                    .getElementById(
+                        "voiceButton"
+                    )
+                    .classList.add(
+                        "listening"
+                    );
+
+
+                document
+                    .getElementById(
+                        "voiceModal"
+                    )
+                    .classList.add(
+                        "active"
+                    );
+
+            };
+
+
+
+            /* ---------------------------------------------
+               Voice result
+            --------------------------------------------- */
+
+            recognition.onresult =
+                function(event) {
+
+
+                    let finalText = "";
+
+                    let interimText = "";
+
+
+
+                    for (
+                        let i = event.resultIndex;
+                        i < event.results.length;
+                        i++
+                    ) {
+
+
+                        const transcript =
+                            event.results[i][0]
+                                .transcript;
+
+
+
+                        if (
+                            event.results[i]
+                                .isFinal
+                        ) {
+
+                            finalText +=
+                                transcript;
+
+                        } else {
+
+                            interimText +=
+                                transcript;
+
+                        }
+
+                    }
+
+
+
+                    const answerBox =
+                        document.getElementById(
+                            "answerBox"
+                        );
+
+
+
+                    if (finalText) {
+
+                        answerBox.value =
+                            finalText.trim();
+
+                    }
+                    else if (interimText) {
+
+                        answerBox.value =
+                            interimText.trim();
+
+                    }
+
+                };
+
+
+
+            /* ---------------------------------------------
+               Voice error
+            --------------------------------------------- */
+
+            recognition.onerror =
+                function(event) {
+
+
+                    isListening = false;
+
+
+                    document
+                        .getElementById(
+                            "voiceButton"
+                        )
+                        .classList.remove(
+                            "listening"
+                        );
+
+
+                    document
+                        .getElementById(
+                            "voiceModal"
+                        )
+                        .classList.remove(
+                            "active"
+                        );
+
+
+
+                    let message;
+
+
+
+                    if (
+                        event.error ===
+                        "not-allowed"
+                    ) {
+
+
+                        message =
+                            currentLanguage === "en"
+
+                                ? "Microphone permission was denied. Please allow microphone access in your browser."
+
+                                : "माइक्रोफोन की अनुमति नहीं मिली। कृपया अपने ब्राउज़र में माइक्रोफोन की अनुमति दें।";
+
+                    }
+                    else {
+
+
+                        message =
+                            currentLanguage === "en"
+
+                                ? "We could not capture your voice. Please try again or type your answer."
+
+                                : "आपकी आवाज़ रिकॉर्ड नहीं हो सकी। कृपया फिर प्रयास करें या अपना उत्तर लिखें।";
+
+                    }
+
+
+                    alert(message);
+
+                };
+
+
+
+            /* ---------------------------------------------
+               Voice ended
+            --------------------------------------------- */
+
+            recognition.onend =
+                function() {
+
+                    finishVoice();
+
+                };
+
+
+
+            /* Start */
+
+            recognition.start();
+
+        }
+
+
+
+        /* =================================================
+           FINISH VOICE
+        ================================================= */
+
+        function finishVoice() {
+
+
+            isListening = false;
+
+
+            document
+                .getElementById(
+                    "voiceButton"
+                )
+                .classList.remove(
+                    "listening"
+                );
+
+
+            document
+                .getElementById(
+                    "voiceModal"
+                )
+                .classList.remove(
+                    "active"
+                );
+
+
+
+            const voiceTitle =
+                document.getElementById(
+                    "voiceTitle"
+                );
+
+
+            const voiceStatus =
+                document.getElementById(
+                    "voiceStatus"
+                );
+
+
+
+            voiceTitle.textContent =
+                currentLanguage === "en"
+                    ? "Tap to speak"
+                    : "बोलने के लिए दबाएं";
+
+
+            voiceStatus.textContent =
+                currentLanguage === "en"
+                    ? "Your answer has been recorded."
+                    : "आपका उत्तर दर्ज हो गया है।";
+
+        }
+
+
+
+        /* =================================================
+           STOP VOICE
+        ================================================= */
+
+        function stopVoice() {
+
+
+            if (
+                recognition &&
+                isListening
+            ) {
+
+                recognition.stop();
+
+            }
+            else {
+
+                finishVoice();
+
+            }
+
+        }
+
+
+
+        /* =================================================
+           SUBMIT ANSWER
+        ================================================= */
+
+        function submitAnswer() {
+
+
+            const answerBox =
+                document.getElementById(
+                    "answerBox"
+                );
+
+
+            const answer =
+                answerBox.value.trim();
+
+
+
+            /* No answer */
+
+            if (!answer) {
+
+
+                alert(
+
+                    currentLanguage === "en"
+
+                        ? "Please speak or type your answer before continuing."
+
+                        : "जारी रखने से पहले कृपया बोलकर या लिखकर अपना उत्तर दें।"
+
+                );
+
+
+                return;
+
+            }
+
+
+
+            const button =
+                document.getElementById(
+                    "answerContinueButton"
+                );
+
+
+
+            button.textContent =
+                currentLanguage === "en"
+                    ? "Answer recorded"
+                    : "उत्तर दर्ज हो गया";
+
+
+            button.disabled = true;
+
+
+
+            /* Give a short confirmation */
+
+            setTimeout(function() {
+
+
+                button.textContent =
+                    currentLanguage === "en"
+                        ? "Continue"
+                        : "जारी रखें";
+
+
+                button.disabled = false;
+
+
+                alert(
+
+                    currentLanguage === "en"
+
+                        ? "Your answer has been recorded."
+
+                        : "आपका उत्तर दर्ज हो गया है।"
+
+                );
+
+
+            }, 700);
+
+        }
+
+
+
+        /* =================================================
+           HELP
+        ================================================= */
+
+        function openHelp() {
+
+
+            document
+                .getElementById(
+                    "helpModal"
+                )
+                .classList.add(
+                    "active"
+                );
+
+        }
+
+
+
+        function closeHelp() {
+
+
+            document
+                .getElementById(
+                    "helpModal"
+                )
+                .classList.remove(
+                    "active"
+                );
+
+        }
+
+
+
+        /* =================================================
+           CLOSE MODALS BY CLICKING OUTSIDE
+        ================================================= */
+
+        document
+            .querySelectorAll(
+                ".modal-overlay"
+            )
+            .forEach(function(overlay) {
+
+
+                overlay.addEventListener(
+                    "click",
+                    function(event) {
+
+
+                        if (
+                            event.target ===
+                            overlay
+                        ) {
+
+
+                            overlay.classList
+                                .remove(
+                                    "active"
+                                );
+
+                        }
+
+                    }
+                );
+
+            });
+
+
+
+        /* =================================================
+           INITIAL SETUP
+        ================================================= */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function() {
+
+
+                const answerBox =
+                    document.getElementById(
+                        "answerBox"
+                    );
+
+
+                answerBox.placeholder =
+                    answerBox.getAttribute(
+                        "data-placeholder-en"
+                    );
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
